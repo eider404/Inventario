@@ -5,6 +5,8 @@ const crypto = require("crypto");
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+const userExtractor = require("./middlewares/userExtractor")
+
 routes.post('/register', async(req, res)=>{
     const user = req.body;
     //filtro para saber si ingresaron los campos
@@ -79,6 +81,14 @@ function GenerarToken(userId){
 
 
 
+
+//CRUD
+
+routes.post('/product',userExtractor,(req, res)=>{
+    const newProduct = req.body;
+    console.log(newProduct)
+
+})
 
 
 module.exports = routes
