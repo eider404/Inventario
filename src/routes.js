@@ -43,8 +43,42 @@ routes.post('/register', async(req, res)=>{
     }) 
 })
 
+routes.post('/login', async(req, res)=>{
+    const {email, password} = req.body
+
+    if(!(email && password)){
+        return res.status(401).json({status: 401, mensaje: "Email y password son nesesarios"})
+    }
+    
+    //busca el email en db
+    req.getConnection((err, conn)=>{
+        conn.query("SELECT * FROM User WHERE email = ?", [email], async(err, rows)=>{
+            try {
+                //usuario registrado en la db
+                const user = rows[0];
+                //valida y la contrasena ingresada es igual con la de la db
+                passIsValid = await bcrypt.compare(password, user.password);
+                if(!passIsValid){
+                    throw new Error()
+                }
+                //genera el token
+                const token =GenerarToken(user.id);
+                
+                return res.json({status: 200, mensaje: "Usuario Logueado" ,user: user.username, token: token })
+ 
+            } catch (error) {
+                return res.status(401).json({status: 401, mensaje: "Email o password invalida"})
+            }
+        })
+    })
+})
+
 function GenerarToken(userId){
     return jwt.sign( {userId}, process.env.SECRET, { expiresIn: 60 * 60 * 24});
 }
+
+
+
+
 
 module.exports = routes
