@@ -86,9 +86,18 @@ function GenerarToken(userId){
 
 routes.post('/product',userExtractor,(req, res)=>{
     const newProduct = req.body;
-    console.log(newProduct)
 
+    newProduct.idProduct = crypto.randomBytes(5).toString("hex");
+    //console.log(newProduct)
+    req.getConnection((err, conn)=>{
+        if(err) { return res.send(err)}
+        conn.query("INSERT INTO Product set ?", [newProduct], (err, rows)=>{
+            if(err) { return res.send(err) }
+            res.json(rows);
+        })
+    })
 })
+//HACER UN COMMIT
 
 
 module.exports = routes
