@@ -83,10 +83,21 @@ function GenerarToken(userId){
 
 
 //CRUD
+routes.get('/product',(req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) { return res.send(err) }
+        
+        conn.query("SELECT * FROM Product", (err, rows)=>{
+            if(err) { return res.send(err) }
+            res.json(rows);
+        })   
+    })
+})
 
+//userExtractor es un middleware que verifica el JWT
 routes.post('/product',userExtractor,(req, res)=>{
     const newProduct = req.body;
-
+    //crea un id para el producto
     newProduct.idProduct = crypto.randomBytes(5).toString("hex");
     //console.log(newProduct)
     req.getConnection((err, conn)=>{
@@ -97,7 +108,7 @@ routes.post('/product',userExtractor,(req, res)=>{
         })
     })
 })
-//HACER UN COMMIT
+
 
 
 module.exports = routes
