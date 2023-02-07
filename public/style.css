@@ -1,0 +1,29 @@
+.scrollbar-deep-purple::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #212529;
+}
+.scrollbar-deep-purple::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+.example-1 {
+    position: relative;
+    overflow-y: scroll;
+    height: 600px;
+}
+
+
+.form-control:focus {
+    border: 1px solid #212529;
+    box-shadow: 0 0 0 0.1rem #31363a;
+} 
+/* 
+.accordion-button:focus {
+    z-index: 3;
+    border-color: #279C88;
+    background-color: #279c8900;
+    outline: 0!important;
+
+    box-shadow: 0 0 0 0.25rem rgba(39, 156, 136, 0.25);
+ } */
