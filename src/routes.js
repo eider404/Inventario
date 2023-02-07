@@ -109,6 +109,18 @@ routes.post('/product',userExtractor,(req, res)=>{
     })
 })
 
+routes.put('/product/:id',userExtractor,(req, res)=>{
+    
+    req.getConnection((err, conn)=>{
+        if(err) { return res.send(err) }
+          
+        conn.query("UPDATE Product set ? WHERE idProduct = ?",[req.body, req.params.id], (err, rows)=>{
+            if(err) { return res.send(err) }
+            res.json(req.body)
+        })
+    }) 
+    
+})
 
 
 module.exports = routes
