@@ -104,7 +104,7 @@ routes.post('/product',userExtractor,(req, res)=>{
         if(err) { return res.send(err)}
         conn.query("INSERT INTO Product set ?", [newProduct], (err, rows)=>{
             if(err) { return res.send(err) }
-            res.json(rows);
+            return res.json({status: 200, mensaje: "Producto agregado" ,data: newProduct})
         })
     })
 })
@@ -116,7 +116,7 @@ routes.put('/product/:id',userExtractor,(req, res)=>{
           
         conn.query("UPDATE Product set ? WHERE idProduct = ?",[req.body, req.params.id], (err, rows)=>{
             if(err) { return res.send(err) }
-            res.json(req.body)
+            return res.json({status: 200, mensaje: "Producto actualizado" ,data: req.body})
         })
     }) 
     
@@ -129,7 +129,7 @@ routes.delete('/product/:id',userExtractor,(req, res)=>{
         
         conn.query("DELETE FROM Product WHERE idProduct = ?",[req.params.id ], (err, rows)=>{
             if(err) { return res.send(err) }
-            res.json({rows})
+            return res.json({status: 200, mensaje: "Producto eliminado" ,data: req.params.id})
         })
     })
 })
