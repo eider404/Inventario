@@ -122,5 +122,17 @@ routes.put('/product/:id',userExtractor,(req, res)=>{
     
 })
 
+routes.delete('/product/:id',userExtractor,(req, res)=>{
+    
+    req.getConnection((err, conn)=>{
+        if(err) { return res.send(err) }
+        
+        conn.query("DELETE FROM Product WHERE idProduct = ?",[req.params.id ], (err, rows)=>{
+            if(err) { return res.send(err) }
+            res.json({rows})
+        })
+    })
+})
+
 
 module.exports = routes
