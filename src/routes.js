@@ -115,17 +115,17 @@ routes.post('/product',userExtractor,(req, res)=>{
     })
 })
 
-routes.put('/product/:idProduct',userExtractor,(req, res)=>{
+routes.put('/product',userExtractor,(req, res)=>{
     const editProduct = req.body
     //filtro para saber si ingresaron los campos
-    if(!(editProduct.name && editProduct.count && editProduct.value && req.params.idProduct)){
+    if(!(editProduct.name && editProduct.count && editProduct.value && editProduct.idProduct)){
         return res.status(401).json({status: 401, mensaje: "Campos obligatorios"})
     }
     
     req.getConnection((err, conn)=>{
         if(err) { return res.send(err) }
           
-        conn.query("UPDATE Product set ? WHERE idProduct = ?",[editProduct, req.params.idProduct], (err, rows)=>{
+        conn.query("UPDATE Product set ? WHERE idProduct = ?",[editProduct, editProduct.idProduct], (err, rows)=>{
             if(err) { return res.send(err) }
             return res.json({status: 200, mensaje: "Producto actualizado" ,data: editProduct})
         })

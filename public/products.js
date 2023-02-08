@@ -41,7 +41,7 @@ function Actualizar(){
     const obj = {}
     new FormData( actualizarForm ).forEach( ( value, key ) => obj[ key ] = value )
 
-    fetch( `http://localhost:3000/product/${obj.idProduct}`, {
+    fetch( `http://localhost:3000/product`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
