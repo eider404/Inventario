@@ -95,33 +95,33 @@
                   </h2>
                   <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body"> 
-                        <form >
+                        <form id="actualizarForm">
                             <div class="row mb-3">
                               <label class="col-sm-2 col-form-label">id</label>
                               <div class="col-sm-10">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="idProduct">
                               </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">nombre</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control">
+                                  <input type="text" class="form-control" name="name">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Cantidad</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control">
+                                  <input type="text" class="form-control" name="count">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Precio</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control">
+                                  <input type="text" class="form-control" name="value">
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success col-sm-2" >Actualizar</button>
+                            <button type="button" class="btn btn-success col-sm-2" onclick="Actualizar()">Actualizar</button>
                         </form>
                     </div>
                   </div>
