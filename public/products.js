@@ -60,6 +60,15 @@ function Actualizar(){
                     `;
                 }
 
+                if(data.rows.affectedRows == 0){
+                    return document.querySelector("#messageAgregar").innerHTML= `
+                        <br>
+                        <div class="alert alert-danger" role="alert">
+                            No existe esa id del producto
+                        </div>
+                    `;
+                }    
+
                 document.querySelector("#messageAgregar").innerHTML= `
                 <br>
                 <div class="alert alert-primary" role="alert">
@@ -95,6 +104,15 @@ function Eliminar(){
                         </div>
                     `;
                 }
+
+                if(data.rows.affectedRows == 0){
+                    return document.querySelector("#messageAgregar").innerHTML= `
+                        <br>
+                        <div class="alert alert-danger" role="alert">
+                            No existe esa id del producto
+                        </div>
+                    `;
+                }                
 
                 document.querySelector("#messageAgregar").innerHTML= `
                 <br>
