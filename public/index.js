@@ -23,7 +23,7 @@ function generarTabla(data){
                     <td>${valor.name}</td>
                     <td>${valor.count}</td>
                     <td>${valor.value}</td>
-                    <td>${valor.userId_fk}</td>
+                    <td>${valor.username}</td>
                 </tr>
                 
             `

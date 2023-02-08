@@ -87,7 +87,7 @@ routes.get('/product',(req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) { return res.send(err) }
         
-        conn.query("SELECT * FROM Product", (err, rows)=>{
+        conn.query("SELECT Product.idProduct, Product.name, Product.count, Product.value, User.username FROM Product INNER JOIN User ON Product.userId_fk = User.id", (err, rows)=>{
             if(err) { return res.send(err) }
             res.json(rows);
         })   
