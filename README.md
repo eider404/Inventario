@@ -21,9 +21,9 @@ Este repositorio es un pequeño proyecto en el cual se usa las tecnologías para
 
 ### Tecnologías utilizadas
 - Express.js
-	- JsonWebToken
-	- bcrypt
-	- crypto
+	- JsonWebToken: (genera y valida tokens con el id del usuario y una palabra secreta)
+	- bcrypt: (encripta y desencripta el password y lo almacena el la DB)
+	- crypto: (genera IDs unicas)
 - MySQL
 - Bootstrap
 
