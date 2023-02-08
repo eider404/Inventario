@@ -97,6 +97,12 @@ routes.get('/product',(req, res)=>{
 //userExtractor es un middleware que verifica el JWT
 routes.post('/product',userExtractor,(req, res)=>{
     const newProduct = req.body;
+
+    //filtro para saber si ingresaron los campos
+    if(!(newProduct.name && newProduct.count && newProduct.value)){
+        return res.status(401).json({status: 401, mensaje: "Campos obligatorios"})
+    }
+    
     //crea un id para el producto
     newProduct.idProduct = crypto.randomBytes(5).toString("hex");
     //console.log(newProduct)
@@ -110,19 +116,28 @@ routes.post('/product',userExtractor,(req, res)=>{
 })
 
 routes.put('/product/:id',userExtractor,(req, res)=>{
+    const editProduct = req.body
+    //filtro para saber si ingresaron los campos
+    if(!(editProduct.name && editProduct.count && editProduct.value && req.params.id)){
+        return res.status(401).json({status: 401, mensaje: "Campos obligatorios"})
+    }
     
     req.getConnection((err, conn)=>{
         if(err) { return res.send(err) }
           
-        conn.query("UPDATE Product set ? WHERE idProduct = ?",[req.body, req.params.id], (err, rows)=>{
+        conn.query("UPDATE Product set ? WHERE idProduct = ?",[editProduct, req.params.id], (err, rows)=>{
             if(err) { return res.send(err) }
-            return res.json({status: 200, mensaje: "Producto actualizado" ,data: req.body})
+            return res.json({status: 200, mensaje: "Producto actualizado" ,data: editProduct})
         })
     }) 
     
 })
 
 routes.delete('/product/:id',userExtractor,(req, res)=>{
+    //filtro para saber si ingresaron los campos
+    if(!(req.params.id)){
+        return res.status(401).json({status: 401, mensaje: "Campo obligatorio"})
+    }
     
     req.getConnection((err, conn)=>{
         if(err) { return res.send(err) }
