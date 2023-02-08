@@ -127,7 +127,7 @@ routes.put('/product',userExtractor,(req, res)=>{
           
         conn.query("UPDATE Product set ? WHERE idProduct = ?",[editProduct, editProduct.idProduct], (err, rows)=>{
             if(err) { return res.send(err) }
-            return res.json({status: 200, mensaje: "Producto actualizado" ,data: editProduct})
+            return res.json({status: 200, mensaje: "Producto actualizado" ,data: editProduct, rows: rows})
         })
     }) 
     
@@ -144,7 +144,7 @@ routes.delete('/product',userExtractor,(req, res)=>{
         
         conn.query("DELETE FROM Product WHERE idProduct = ?",[req.body.idProduct], (err, rows)=>{
             if(err) { return res.send(err) }
-            return res.json({status: 200, mensaje: "Producto eliminado" ,data: req.body.idProduct})
+            return res.json({status: 200, mensaje: "Producto eliminado" ,data: req.body.idProduct, rows: rows})
         })
     })
 })
