@@ -77,13 +77,13 @@ function Eliminar(){
     const obj = {}
     new FormData( eliminarForm ).forEach( ( value, key ) => obj[ key ] = value )
 
-    fetch( `http://localhost:3000/product/${obj.idProduct}`, {
+    fetch( `http://localhost:3000/product`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token')
                 },
-                /* body: JSON.stringify( obj ) */
+                body: JSON.stringify( obj )
             })
             .then(res => res.json())
             .then( data =>{
