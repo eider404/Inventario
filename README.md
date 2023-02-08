@@ -28,7 +28,7 @@ Este repositorio es un pequeño proyecto en el cual se usa las tecnologías para
 - Bootstrap
 
 ### Instalacion
-1. Crea la DB (db.sql)
+1. Crea la DB (Example.sql)
 
 
 2. Ajustar la configuración de la DB, segun su servidor MYSQL ( src/models/db.js):
