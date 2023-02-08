@@ -133,18 +133,18 @@ routes.put('/product/:idProduct',userExtractor,(req, res)=>{
     
 })
 
-routes.delete('/product/:id',userExtractor,(req, res)=>{
+routes.delete('/product/:idProduct',userExtractor,(req, res)=>{
     //filtro para saber si ingresaron los campos
-    if(!(req.params.id)){
+    if(!(req.params.idProduct)){
         return res.status(401).json({status: 401, mensaje: "Campo obligatorio"})
     }
     
     req.getConnection((err, conn)=>{
         if(err) { return res.send(err) }
         
-        conn.query("DELETE FROM Product WHERE idProduct = ?",[req.params.id ], (err, rows)=>{
+        conn.query("DELETE FROM Product WHERE idProduct = ?",[req.params.idProduct ], (err, rows)=>{
             if(err) { return res.send(err) }
-            return res.json({status: 200, mensaje: "Producto eliminado" ,data: req.params.id})
+            return res.json({status: 200, mensaje: "Producto eliminado" ,data: req.params.idProduct})
         })
     })
 })
