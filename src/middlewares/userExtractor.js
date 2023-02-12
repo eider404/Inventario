@@ -3,11 +3,12 @@ require('dotenv').config();
 
 module.exports = async(req, res, next) => {
 
-    const token = req.headers.authorization;
+    const tokenBearer = req.headers.authorization;
     //console.log(token)
     var newProduct = req.body 
 
     try {
+        token = tokenBearer.split(" ")[1];
         decodedToken = await jwt.verify(token, process.env.SECRET)
 
     } catch (error) {

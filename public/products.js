@@ -32,7 +32,7 @@ function Agregar(){
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token')
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify( obj )
             })
@@ -59,7 +59,7 @@ function Actualizar(){
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token')
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify( obj )
             })
@@ -89,7 +89,7 @@ function Eliminar(){
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token')
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify( obj )
             })
