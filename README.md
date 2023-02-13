@@ -1,9 +1,9 @@
-# Manejo de Sesiones y Usuarios 
+# Manejo de Sesiones y Usuarios  
 
 > CREADOR: Eider Moises Pool Arjona
 
 Este repositorio es un pequeño proyecto en el cual se usa las tecnologías para administrar las sesiones y usuarios.
-## Inventario
+## Inventario  💥 [Ver Pagina](https://eider-inventario.fly.dev/ "Ver Pagina") 💥
 ### Funcionamiento: 
 **1. Usuarios normales (sin registrarse) únicamente tienen la opción de ver los productos**
 
