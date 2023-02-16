@@ -166,7 +166,7 @@ routes.post('/forgot-password', (req, res) => {
                 
                 //El usuario existe y ahora creara un link valido una sola vez
                 const secret = process.env.SECRET +  user.password;
-                const token = jwt.sign({userId: user.userId}, secret, { expiresIn: '15m'});
+                const token = jwt.sign({id: user.id}, secret, { expiresIn: '15m'});
                 const link = `http://localhost:3000/reset-password/${user.id}/${token}`;
                 
                 //envia el link al correo
