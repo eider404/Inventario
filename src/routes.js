@@ -150,4 +150,37 @@ routes.delete('/product',userExtractor,(req, res)=>{
 })
 
 
+//forgot password
+
+routes.post('/forgot-password', (req, res) => {
+    const {email} = req.body;
+
+    req.getConnection((err, conn)=>{
+        if(err) { return res.send(err)}
+        //filtro para saber si el email existe en la db
+        conn.query("SELECT * FROM User WHERE email = ?", [email],async (err, rows)=>{
+            try {
+                if(rows.length == 0){ throw new Error()}
+                //res.json({"message": rows})
+                const user = rows[0]
+                
+                //El usuario existe y ahora creara un link valido una sola vez
+                const secret = process.env.SECRET +  user.password;
+                const token = jwt.sign({userId: user.userId}, secret, { expiresIn: '15m'});
+                const link = `http://localhost:3000/reset-password/${user.id}/${token}`;
+                
+                //envia el link al correo
+                console.log(link);
+
+                //responde
+                res.status(200).json({status:200, mensaje: "Te hemos enviado un correo electrónico para restaurar tu contraseña", data: email})
+                
+            } catch (error) {
+                return res.status(401).json({status: 401, mensaje: "El email no existe"})
+            }
+        })  
+    })
+})
+
+
 module.exports = routes
