@@ -183,4 +183,40 @@ routes.post('/forgot-password', (req, res) => {
 })
 
 
+routes.get('/reset-password/:id/:token', (req, res) => {
+    //pathRoot = __dirname.replace('src','')
+    //res.sendFile(pathRoot+'/public/reset-password.html');
+
+    const {id, token} = req.params;
+
+    req.getConnection((err, conn)=>{
+        if(err) { return res.send(err)}
+        //filtro para saber si el email existe en la db
+        conn.query("SELECT * FROM User WHERE id = ?", [id],async (err, rows)=>{
+            try {
+                if(rows.length == 0){ throw new Error()}
+                //usuario existente
+                const user = rows[0]
+
+                //verificamos si id 
+                if(id !== user.id){
+                    return res.send('id invalido');
+                }
+
+                //id valido y verificamos su token, si ocurre un error al verificar, ira al catch
+                const secret = process.env.SECRET +  user.password;
+                const posibleError = jwt.verify(token,secret)
+                
+                pathRoot = __dirname.replace('src','')
+                res.sendFile(pathRoot+'/public/reset-password.html');
+                
+            } catch (error) {
+                return res.status(401).json({status: 401, mensaje: "Algo salio mal 1 :("})
+            }
+        })  
+    })
+
+})
+
+
 module.exports = routes
