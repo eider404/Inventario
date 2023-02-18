@@ -216,4 +216,45 @@ routes.get('/reset-password/:id/:token', (req, res) => {
 })
 
 
+
+routes.post('/reset-password/:id/:token', (req, res) => {
+
+    const {id, token} = req.params;
+    const {newPassword, newPassword2} = req.body;
+    
+    if(newPassword !== newPassword2){
+        return res.status(401).json({status: 401, mensaje: "Las contraseñas no coinciden"})
+    }
+
+    req.getConnection((err, conn)=>{
+        if(err) { return res.send(err)}
+        //filtro para saber si el email existe en la db
+        conn.query("SELECT * FROM User WHERE id = ?", [id],async (err, rows)=>{
+            try {
+                //si el usuario no existe lo enviamos al catch
+                if(rows.length == 0){ throw new Error()}
+                //usuario existente
+                const user = rows[0];              
+
+                //verificamos el token
+                const secret = process.env.SECRET +  user.password;
+                const posibleError = jwt.verify(token,secret);
+
+                //encripta la nueva contrasena
+                const salt = await bcrypt.genSalt(5); 
+                user.password = await bcrypt.hash(newPassword, salt);
+
+                //actualizamos la contrasena
+                conn.query("UPDATE User set password=? WHERE id = ?",[user.password, id], (err, rows)=>{
+                    return res.json({status: 200, mensaje: "contraseña actualizado", rows: rows})
+                })
+                
+            } catch (error) {
+                return res.status(401).json({status: 401, mensaje: "Algo salió mal"})
+            }
+        })  
+    }) 
+})
+
+
 module.exports = routes
