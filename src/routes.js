@@ -184,9 +184,6 @@ routes.post('/forgot-password', (req, res) => {
 
 
 routes.get('/reset-password/:id/:token', (req, res) => {
-    //pathRoot = __dirname.replace('src','')
-    //res.sendFile(pathRoot+'/public/reset-password.html');
-
     const {id, token} = req.params;
 
     req.getConnection((err, conn)=>{
@@ -211,7 +208,7 @@ routes.get('/reset-password/:id/:token', (req, res) => {
                 res.sendFile(pathRoot+'/public/reset-password.html');
                 
             } catch (error) {
-                return res.status(401).json({status: 401, mensaje: "Algo salio mal 1 :("})
+                return res.status(401).send("El link ya fue utilizado o es incorrecto")
             }
         })  
     })
