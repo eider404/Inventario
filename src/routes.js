@@ -223,7 +223,7 @@ routes.post('/reset-password/:id/:token', (req, res) => {
     const {newPassword, newPassword2} = req.body;
     
     if(newPassword !== newPassword2){
-        return res.status(401).send("Las contraseñas no coinciden").json({status: 401, mensaje: "Las contraseñas no coinciden"})
+        return res.status(401).json({status: 401, mensaje: "Las contraseñas no coinciden"})
     }
 
     req.getConnection((err, conn)=>{
@@ -246,11 +246,11 @@ routes.post('/reset-password/:id/:token', (req, res) => {
 
                 //actualizamos la contrasena
                 conn.query("UPDATE User set password=? WHERE id = ?",[user.password, id], (err, rows)=>{
-                    return res.send("contraseña actualizado").json({status: 200, mensaje: "contraseña actualizado", rows: rows})
+                    return res.status(200).json({status: 200, mensaje: "contraseña actualizada", rows: rows})                
                 })
                 
             } catch (error) {
-                return res.send("Algo salió mal").status(401).json({status: 401, mensaje: "Algo salió mal"})
+                return res.status(401).json({status: 401, mensaje: "Algo salió mal"})
             }
         })  
     }) 
