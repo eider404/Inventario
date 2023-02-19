@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const userExtractor = require("./middlewares/userExtractor")
+const {EnviarCorreo} = require("./services/sendEmail")
 
 routes.post('/register', async(req, res)=>{
     const user = req.body;
@@ -170,7 +171,8 @@ routes.post('/forgot-password', (req, res) => {
                 const link = `http://localhost:3000/reset-password/${user.id}/${token}`;
                 
                 //envia el link al correo
-                console.log(link);
+                //console.log(link);
+                await EnviarCorreo(email,link);
 
                 //responde
                 res.status(200).json({status:200, mensaje: "Te hemos enviado un correo electrónico para restaurar tu contraseña", data: email})
