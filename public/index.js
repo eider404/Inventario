@@ -119,3 +119,40 @@ function Login(){
             })
             .catch(err => console.log(err));
 }
+
+
+
+function actualizarContraseña(){
+    let actualizarContraseña = document.querySelector( '#actualizarContraseñaForm' )
+
+    const obj = {}
+    new FormData( actualizarContraseña ).forEach( ( value, key ) => obj[ key ] = value )
+    fetch( `http://localhost:3000/forgot-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( obj )
+            })
+            .then(res => res.json())
+            .then( data =>{
+                if(data.status == 401){
+                    return document.querySelector("#messageActualizarPass").innerHTML= `
+                        <br>
+                        <div class="alert alert-danger" role="alert">
+                        ${data.mensaje}
+                        </div>
+                    `;
+                }
+
+                document.querySelector("#messageActualizarPass").innerHTML= `
+                <br>
+                <div class="alert alert-primary" role="alert">
+                  ${data.mensaje}
+                </div>
+                `; 
+                
+                
+            })
+            .catch(err => console.log(err));
+}
